@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="">
+
+  <title> Finexo </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="/css/font-awesome.min.css" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <!-- responsive style -->
+  <link href="/src/main/resources/static/css/responsive.css" rel="stylesheet" />
+  <link href="/src/main/resources/static/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="@{pageContext.request.contextPath}/css/responsive.css" rel="stylesheet" />
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@300;400;600;700&display=swap");
+    body {
+    font-family: "Open Sans", sans-serif;
+    color: #0c0c0c;
+    background-color: #ffffff;
+    
+  }
+    .col-6 .product-name, 
+    .col-6 .product-code, 
+    .col-6 .product-detail, 
+    .col-6 .product-price {
+    margin-bottom: 10px;
+ }
+ .col-6 .product-name {
+    font-weight: bold;
+    font-size: 50px;
+ }
+ .col-6 .product-price{
+    color: red;
+    font-size: 25px;
+    font-weight: 800;
+ }
+ .col-6 .btn{
+    height: 50px;
+    width: 500px;
+    font-size: 30px;
+    font-weight: 600;
+ }
+ 
+
+ 
+
+    </style>
+</head>
+
+<body>
+
+    <div th:replace="~{/files/header}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+<div style="margin: 100px;">
+   <div style="margin: 20px;" class="row">
+    <div class="col-6" >
+        <img th:src="${product.anh}" width="100%">
+    </div>
+    <div class="col-6 ">
+        <h5 class="product-name" th:text="${product.productname}">Tissot</h5>
+        <div class="product-code" >Mã Số Sản Phẩm:  ST0939-KO33-2939DD</div>
+        <div class="product-price" th:text="${product.price}">17500000</div>
+        <div class="product-detail" th:text="${product.status}">Tissot Le Locle Powermatic 80 39.3mm T006.407.16.033.00 – Mẫu đồng hồ cơ cổ điển sang trọng của Tissot được đánh giá cao bởi bộ máy automatic tích cót lên đến 80 giờ. Thiết kế dây đeo da bò vân cá sấu kết hợp khóa bướm cao cấp chống nứt gãy.</div>
+        <form method="post" th:action="@{/addcart/{id}(id=${product.id})}">
+            <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+        </form>
+        
+        <div style="margin-top: 20px; background-color: #9191919e; padding: 20px; border-radius: 8px;" class="col-inner">			  
+            <p><strong>Ưu đãi thêm</strong> dự kiến áp dụng 2025</p>  
+            
+            <div class="text-center">  
+                <div class="is-divider divider clearfix" style="margin: 10px 0; max-width: 95%; height: 1px; background-color: rgb(255, 255, 255);"></div>  
+            </div>  
+        
+            <div class="icon-box featured-box qua icon-box-left text-left" style="margin: 5px 0;">  
+                <div class="icon-box-img" style="width: 30px;">  
+                    <div class="icon">  
+                        <div class="icon-inner">  
+                            <img src="https://donghohaitrieu.com/wp-content/uploads/2023/06/red-check.svg" class="attachment-medium size-medium" alt="" decoding="async">					  
+                        </div>  
+                    </div>  
+                </div>  
+                <div class="icon-box-text last-reset">  
+                    <p>Dịch vụ gói quà miễn phí khi mua tại cửa hàng.</p>  
+                </div>  
+            </div>  
+            
+            <div class="icon-box featured-box qua icon-box-left text-left" style="margin: 5px 0;">  
+                <div class="icon-box-img" style="width: 30px;">  
+                    <div class="icon">  
+                        <div class="icon-inner">  
+                            <img src="https://donghohaitrieu.com/wp-content/uploads/2023/06/red-check.svg" class="attachment-medium size-medium" alt="" decoding="async">					  
+                        </div>  
+                    </div>  
+                </div>  
+                <div class="icon-box-text last-reset">  
+                    <p>Khi thanh toán qua Home PayLater tại Hải Triều:</p>  
+                </div>  
+            </div>  
+            
+            <p style="padding-left: 40px;">- Giảm 50% tối đa 100K cho đơn từ 200K</p>  
+            <p style="padding-left: 40px;">- Giảm 5% tối đa 500K</p>  
+        </div>
+    </div>
+   </div> 
+ </div>
+  <!-- footer section -->
+  <div th:replace="~{/files/footer}"></div>
+  <!-- jQery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- owl slider -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- custom js -->
+  <script type="text/javascript" src="js/custom.js">
+    
+  </script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+  </script>
+  <!-- End Google Map -->
+  <script>
+    const cardRate = document.querySelector('.product-price');
+    const price = cardRate.textContent;
+    const formattedPrice = price.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' VNĐ';
+    cardRate.textContent = formattedPrice;
+  </script>
+</body>
+
+</html>

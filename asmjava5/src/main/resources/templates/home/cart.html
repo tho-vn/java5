@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="images/favicon.png" type="">
+
+    <title>Finexo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- Font Awesome style -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Custom styles -->
+    <link href="/css/cart.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+
+   
+</head>
+
+<body>
+    <div th:replace="~{/files/header}"></div>
+
+    <div class="container mt-5 p-3 rounded cart">
+        <div class="row no-gutters">
+            <div class="">
+                <div class="product-details">
+                    <hr>
+                    <h6>Shopping Cart</h6>
+                    <div class="table-responsive">
+                        <table class="table table-cart">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <h1 th:text="${message}"></h1>
+                            <tbody>
+                                <tr th:each="item : ${products}">
+                                    <td data-label="Image">
+                                        <img class="rounded" th:src="${item.product.anh}" alt="Product Image">
+                                    </td>
+                                    <td data-label="Product" th:text="${item.product.productname}"></td>
+                                    <td class="card-rate" th:text="${item.product.price}"></td>
+                                    <td data-label="Quantity">
+                                        <div class="quantity-control">
+                                            <form method="post" th:action="@{/updatequantity/{id}(id=${item.product.id}, action='decrease')}" style="display:inline;">
+                                                <button type="submit" class="btn btn-sm">-</button>
+                                            </form>
+                                            <span th:text="${item.quantity}"></span>
+                                            <form method="post" th:action="@{/updatequantity/{id}(id=${item.product.id}, action='increase')}" style="display:inline;">
+                                                <button type="submit" class="btn btn-sm">+</button>
+                                            </form>
+                                        </div>
+                                    </td>                                    
+                                    <td class="card-rate" data-label="Total" th:text="${item.getTotalPrice()}"></td>
+                                    <td data-label="Action">
+                                        <form method="post" th:action="@{/removecart/{id}(id=${item.product.id})}" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="payment-info">
+                    
+                    <span class="type d-block mt-3 mb-1">Card Type</span>
+                    <div class="d-flex gap-2">
+                        <label class="radio">
+                            <input type="radio" name="card" value="payment" checked>
+                            <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="card" value="payment">
+                            <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png" /></span>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="card" value="payment">
+                            <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png" /></span>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="card" value="payment">
+                            <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png" /></span>
+                        </label>
+                    </div>
+                    <br>
+                    <div><label class="credit-card-label">Tên người nhận</label><input type="text" class="form-control credit-inputs" placeholder="Tên người nhận" required ></div>
+                    <div><label class="credit-card-label">Số điện thoại</label><input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000" required></div>
+                    <div class="row">
+                        <div><label >Địa chỉ</label><input type="text" class="form-control credit-inputs credit-card-diachi" placeholder="Địa chỉ" required></div>                    </div>
+                    <hr class="line">
+                    <!-- <div class="d-flex justify-content-between information"><span>Tổng tiền</span><span class="card-rate" id="tongtien" th:text="${totalPrice}" >$3000.00</span></div>
+                    <button class="btn btn-primary btn-block d-flex justify-content-between mt-4" type="button">
+                        <span style="color: white;">Thanh toán <i class="fa fa-long-arrow-right ml-1"></i></span>
+                    </button> -->
+                    <!-- <tr th:each="user : ${clients}"> -->
+                       
+                    <!-- </tr> -->
+                    <form method="post" th:action="@{/thanhtoan}">
+                        <input type="hidden" name="nhanvienid"  th:value="${session.user.id}"></input>
+                        <div class="d-flex justify-content-between information"><span>Tổng tiền</span><input class="card-rate" type="hidden" name="tongtien"  th:value="${totalPrice}" ></input><a style="color: rgb(255, 255, 255);font-weight: bold;" class="card-rate" th:text="${totalPrice}" ></a></div>
+                        <button class="btn btn-primary btn-block d-flex justify-content-between mt-4" type="submit">
+                            <span style="color: white;">Thanh toán <i class="fa fa-long-arrow-right ml-1"></i></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer section -->
+    <div th:replace="~{/files/footer}"></div>
+
+    <!-- Scripts -->
+    <script>
+        const cardRates = document.querySelectorAll('.card-rate');
+     
+     cardRates.forEach((cardRate) => {
+       const price = cardRate.textContent;
+       const formattedPrice = price.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' VNĐ';
+       cardRate.textContent = formattedPrice;
+     });
+     
+       </script>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+</body>
+
+</html>
